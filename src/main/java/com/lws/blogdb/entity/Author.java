@@ -21,36 +21,37 @@ public class Author implements Serializable {
     /**
      * 作者ID 雪花算法
      */
-    @NotEmpty(groups = {update.class},message="作者ID不能为空")
+    @NotEmpty(groups = {updateBase.class},message="作者ID不能为空")
     private String authorid;
 
     /**
      * 登录名
      */
-    @Pattern(groups = {registry.class,update.class,loginByLoginName.class},regexp="^\\S{6,20}$",message="作者名字6~20位非空字符")
+    @Pattern(groups = {registry.class,updateBase.class,loginByLoginName.class},regexp="^\\S{6,20}$",message="作者名字6~20位非空字符")
     private String loginname;
 
     /**
      * 密码
      */
-    @Pattern(groups = {registry.class,update.class,loginByLoginName.class},regexp="^\\S{6,20}$",message="密码6~20位非空字符")
+    @Pattern(groups = {registry.class,loginByLoginName.class},regexp="^\\S{6,20}$",message="密码6~20位非空字符")
     private String loginpwd;
 
     /**
      * 昵称
      */
+    @Pattern(groups = {updateBase.class},regexp="^\\S{2,10}$",message="昵称2~10位非空字符")
     private String nickname;
 
     /**
      * 邮箱
      */
-    @Email(groups = {registry.class,update.class},message="邮箱格式不正确")
+    @Email(groups = {registry.class,updateBase.class},message="邮箱格式不正确")
     private String email;
 
     /**
      * 电话号码
      */
-    @Pattern(groups = {registry.class,update.class},regexp="^1[34578]\\d{9}$",message="电话号码格式不正确")
+    @Pattern(groups = {registry.class,updateBase.class},regexp="^1[34578]\\d{9}$",message="电话号码格式不正确")
     private String tel;
 
     /**
@@ -96,7 +97,7 @@ public class Author implements Serializable {
     public interface registry{
 
     }
-    public interface update {
+    public interface updateBase {
 
     }
     public interface loginByLoginName {

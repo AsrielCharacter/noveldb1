@@ -5,8 +5,11 @@ import com.lws.blogdb.entity.Author;
 import com.lws.blogdb.mapper.AuthorMapper;
 import com.lws.blogdb.service.AuthorService;
 import com.lws.blogdb.utils.Md5Util;
+import com.lws.blogdb.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service
 public class AuthorServiceImpl implements AuthorService {
@@ -31,5 +34,37 @@ public class AuthorServiceImpl implements AuthorService {
         String HashedPassword = Md5Util.getMd5(password);
 
         return authorMapper.selectByNameAndPassword(name, HashedPassword);
+    }
+
+    @Override
+    public Author getAuthorInfo() {
+        //从threadlocal中获取authorid
+        Map<String, Object> threadLocalMap = ThreadLocalUtil.get();
+        String authorId = (String) threadLocalMap.get("id");
+        return authorMapper.selectByAuthorId(authorId);
+    }
+
+    @Override
+    public Integer updateBaseInfoAuthor(Author author) {
+        //从threadlocal中获取authorid
+        Map<String, Object> threadLocalMap = ThreadLocalUtil.get();
+        String authorId = (String) threadLocalMap.get("id");
+        author.setAuthorid(authorId);
+        return authorMapper.updateBaseInfo(author);
+    }
+
+    @Override
+    public Integer updateHeadPic(String headPic) {
+        Map<String, Object> threadLocalMap = ThreadLocalUtil.get();
+        String authorId = (String) threadLocalMap.get("id");
+
+        return authorMapper.updateHeadPic(authorId,headPic);
+    }
+
+    @Override
+    public Integer updatePwd(String newHashPwd) {
+        Map<String, Object> threadLocalMap = ThreadLocalUtil.get();
+        String authorId = (String) threadLocalMap.get("id");
+        return authorMapper.updatePwd(authorId,newHashPwd);
     }
 }

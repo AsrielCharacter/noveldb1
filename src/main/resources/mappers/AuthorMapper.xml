@@ -31,6 +31,9 @@
     <select id="selectByNameAndPassword" resultType="com.lws.blogdb.entity.Author">
         select * from author where loginName = #{name} and loginPwd = #{hashedPassword}
     </select>
+    <select id="selectByAuthorId" resultType="com.lws.blogdb.entity.Author">
+        select * from author where authorID = #{authorid}
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from author
@@ -114,5 +117,25 @@
             createTime =  #{createtime,jdbcType=TIMESTAMP},
             updateTime =  #{updatetime,jdbcType=TIMESTAMP}
         where   authorID = #{authorid,jdbcType=VARCHAR}
+    </update>
+    <update id="updateBaseInfo">
+        update author
+        set
+            loginName = #{loginname,jdbcType=VARCHAR},
+            nickName = #{nickname,jdbcType=VARCHAR},
+            email = #{email,jdbcType=VARCHAR},
+            tel = #{tel,jdbcType=VARCHAR},
+            updateTime = now()
+        where authorID = #{authorid,jdbcType=VARCHAR}
+    </update>
+    <update id="updateHeadPic">
+        update author
+        set
+            headPic = #{headpic,jdbcType=VARCHAR},
+            updateTime = now()
+        where authorID = #{authorid,jdbcType=VARCHAR}
+    </update>
+    <update id="updatePwd">
+        update author set loginPwd = #{newHashPwd,jdbcType=VARCHAR} where authorID = #{authorId,jdbcType=VARCHAR}
     </update>
 </mapper>

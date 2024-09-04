@@ -26,4 +26,12 @@ public interface AuthorMapper {
     int updateByPrimaryKey(Author record);
 
     Author selectByNameAndPassword(@Param("name") String name, @Param("hashedPassword") String hashedPassword);
+
+    Author selectByAuthorId(@Param("authorid") String authorid);
+
+    Integer updateBaseInfo(Author author);
+
+    Integer updateHeadPic(@Param("authorid") String authorid, @Param("headPic") String headPic);
+
+    Integer updatePwd(@Param("authorId") String authorId, @Param("newHashPwd") String newHashPwd);
 }
