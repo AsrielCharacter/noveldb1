@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: demo-lws-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/noveldb
+    username: root
+    password: 768418964
+server:
+  port: 8080
+#  日志
+logging:
+  level:
+    root: INFO
+# mapper
+mybatis:
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: com.lws.blogdb
+  configuration:
+    map-underscore-to-camel-case: true
