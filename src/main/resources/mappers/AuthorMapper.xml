@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lws.blogdb.mapper.AuthorMapper">
+
+    <resultMap id="BaseResultMap" type="com.lws.blogdb.entity.Author">
+            <id property="authorid" column="authorID" jdbcType="VARCHAR"/>
+            <result property="loginname" column="loginName" jdbcType="VARCHAR"/>
+            <result property="loginpwd" column="loginPwd" jdbcType="VARCHAR"/>
+            <result property="nickname" column="nickName" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="tel" column="tel" jdbcType="VARCHAR"/>
+            <result property="headpic" column="headPic" jdbcType="VARCHAR"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        authorID,loginName,loginPwd,
+        nickName,email,tel,
+        headPic,createTime,updateTime
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from author
+        where  authorID = #{authorid,jdbcType=INTEGER} 
+    </select>
+    <select id="selectByNameAndPassword" resultType="com.lws.blogdb.entity.Author">
+        select * from author where loginName = #{name} and loginPwd = #{hashedPassword}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from author
+        where  authorID = #{authorid,jdbcType=INTEGER} 
+    </delete>
+    <insert id="insert" keyColumn="authorID" keyProperty="authorid" parameterType="com.lws.blogdb.entity.Author" useGeneratedKeys="true">
+        insert into author
+        ( authorID,loginName,loginPwd
+        ,nickName,email,tel
+        ,headPic,createTime,updateTime
+        )
+        values (#{authorid,jdbcType=INTEGER},#{loginname,jdbcType=VARCHAR},#{loginpwd,jdbcType=VARCHAR}
+        ,#{nickname,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{tel,jdbcType=VARCHAR}
+        ,#{headpic,jdbcType=VARCHAR},now(),now()
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="authorID" keyProperty="authorid" parameterType="com.lws.blogdb.entity.Author" useGeneratedKeys="true">
+        insert into author
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="authorid != null">authorID,</if>
+                <if test="loginname != null">loginName,</if>
+                <if test="loginpwd != null">loginPwd,</if>
+                <if test="nickname != null">nickName,</if>
+                <if test="email != null">email,</if>
+                <if test="tel != null">tel,</if>
+                <if test="headpic != null">headPic,</if>
+                <if test="createtime != null">createTime,</if>
+                <if test="updatetime != null">updateTime,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="authorid != null">#{authorid,jdbcType=INTEGER},</if>
+                <if test="loginname != null">#{loginname,jdbcType=VARCHAR},</if>
+                <if test="loginpwd != null">#{loginpwd,jdbcType=VARCHAR},</if>
+                <if test="nickname != null">#{nickname,jdbcType=VARCHAR},</if>
+                <if test="email != null">#{email,jdbcType=VARCHAR},</if>
+                <if test="tel != null">#{tel,jdbcType=VARCHAR},</if>
+                <if test="headpic != null">#{headpic,jdbcType=VARCHAR},</if>
+                <if test="createtime != null">#{createtime,jdbcType=TIMESTAMP},</if>
+                <if test="updatetime != null">#{updatetime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.lws.blogdb.entity.Author">
+        update author
+        <set>
+                <if test="loginname != null">
+                    loginName = #{loginname,jdbcType=VARCHAR},
+                </if>
+                <if test="loginpwd != null">
+                    loginPwd = #{loginpwd,jdbcType=VARCHAR},
+                </if>
+                <if test="nickname != null">
+                    nickName = #{nickname,jdbcType=VARCHAR},
+                </if>
+                <if test="email != null">
+                    email = #{email,jdbcType=VARCHAR},
+                </if>
+                <if test="tel != null">
+                    tel = #{tel,jdbcType=VARCHAR},
+                </if>
+                <if test="headpic != null">
+                    headPic = #{headpic,jdbcType=VARCHAR},
+                </if>
+                <if test="createtime != null">
+                    createTime = now(),
+                </if>
+                <if test="updatetime != null">
+                    updateTime = now(),
+                </if>
+        </set>
+        where   authorID = #{authorid,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.lws.blogdb.entity.Author">
+        update author
+        set 
+            loginName =  #{loginname,jdbcType=VARCHAR},
+            loginPwd =  #{loginpwd,jdbcType=VARCHAR},
+            nickName =  #{nickname,jdbcType=VARCHAR},
+            email =  #{email,jdbcType=VARCHAR},
+            tel =  #{tel,jdbcType=VARCHAR},
+            headPic =  #{headpic,jdbcType=VARCHAR},
+            createTime =  #{createtime,jdbcType=TIMESTAMP},
+            updateTime =  #{updatetime,jdbcType=TIMESTAMP}
+        where   authorID = #{authorid,jdbcType=VARCHAR}
+    </update>
+</mapper>
