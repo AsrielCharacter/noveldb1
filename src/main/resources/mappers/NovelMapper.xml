@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lws.blogdb.mapper.NovelMapper">
+    <insert id="addNovel">
+        INSERT INTO novel
+        (novelID, title, typeID, coverUrl, content, createTime, updateTime, state, authorID)
+        VALUES
+        (#{novelId}, #{title}, #{typeId}, #{coverUrl}, #{content}, now(), now(), #{state}, #{authorId})
+    </insert>
+    <update id="updateNovel">
+        UPDATE novel
+        SET title = #{title}, typeID = #{typeId}, coverUrl = #{coverUrl}, content = #{content}, updateTime = now(), state = #{state}, authorID = #{authorId}
+        WHERE novelID = #{novelId}
+    </update>
+    <delete id="deleteNovel">
+        DELETE FROM novel WHERE novelID = #{novelID}
+    </delete>
+    <select id="getNovel" resultType="com.lws.blogdb.entity.Novel">
+        select * from novel
+        <where>
+            <if test="typeID!= null">
+                typeID = #{typeID}
+            </if>
+            <if test="state!= null">
+                and state = #{state}
+            </if>
+        </where>
+    </select>
+    <select id="selectNovelById" resultType="com.lws.blogdb.entity.Novel">
+        select * from novel where novelID = #{novelID}
+    </select>
+</mapper>

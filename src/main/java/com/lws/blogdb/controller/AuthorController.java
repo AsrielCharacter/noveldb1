@@ -44,6 +44,14 @@ public class AuthorController {
             @ApiImplicitParam(name = "author", value = "作者实体", required = true, dataType = "Author", paramType = "body"),
     })
     public Result register( @Validated(Author.registry.class) @RequestBody Author author) {
+        String name = author.getLoginname();
+        //查询登录名字是否存在
+        Author authorByName = authorService.selectAuthorByName(name);
+        if (Objects.nonNull(authorByName)) {
+            return Result.error("登录名重复");
+        }
+
+
         Integer author1 = authorService.register(author);
         if (author1!= null&&author1>0) {
             return Result.success("注册成功");
@@ -89,6 +97,13 @@ public class AuthorController {
             @ApiImplicitParam(name = "author", value = "作者实体", required = true, dataType = "Author", paramType = "body"),
     })
     public Result updateAuthor(@Validated(Author.updateBase.class) @RequestBody Author author) {
+        String name = author.getLoginname();
+        //查询登录名字是否存在
+        Author authorByName = authorService.selectAuthorByName(name);
+        if (Objects.nonNull(authorByName)) {
+            return Result.error("登录名重复");
+        }
+
         //虽然前端传来的Author有id,但是不能相信前端的信息,所以这里(service层)需要重新在ThreadLocal中获取当前登录的作者信息一次
         Integer author1 = authorService.updateBaseInfoAuthor(author);
         if (author1 != null && author1 > 0) {

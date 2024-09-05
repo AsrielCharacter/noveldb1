@@ -15,7 +15,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginInterceptor).addPathPatterns("/**").
-                excludePathPatterns("/author/login", "/author/register", "/logout", "/static/**");
+                excludePathPatterns("/author/login",
+                        "/author/register", "/logout",
+                        "/static/**",
+                        "/novelType/**"
+                );
     }
     @Override
     public void addCorsMappings(CorsRegistry registry) {

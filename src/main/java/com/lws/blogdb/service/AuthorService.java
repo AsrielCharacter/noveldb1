@@ -17,4 +17,6 @@ public interface AuthorService {
     Integer updateHeadPic(@URL(message = "头像地址格式错误") String headPic);
     //更新已经登录的作者的密码接口
     Integer updatePwd(String newHashPwd);
+    //根据作者名字查询作者信息接口
+    Author selectAuthorByName(String name);
 }

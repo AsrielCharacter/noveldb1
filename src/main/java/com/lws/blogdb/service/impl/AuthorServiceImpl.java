@@ -67,4 +67,9 @@ public class AuthorServiceImpl implements AuthorService {
         String authorId = (String) threadLocalMap.get("id");
         return authorMapper.updatePwd(authorId,newHashPwd);
     }
+
+    @Override
+    public Author selectAuthorByName(String name) {
+        return authorMapper.selectByName(name);
+    }
 }

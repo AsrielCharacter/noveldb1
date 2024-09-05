@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lws.blogdb.mapper.NovelTypeMapper" >
+    <insert id="addNovelType">
+        INSERT INTO noveltype
+        (typeName, byname, createTime, updateTime)
+            VALUES
+        (#{typeName}, #{byName}, now(),now())
+    </insert>
+    <update id="updateNovelType">
+        UPDATE noveltype SET typeName = #{typeName}, byname = #{byName}, updateTime = now() WHERE typeID = #{typeId}
+    </update>
+    <delete id="deleteNovelType">
+        DELETE FROM noveltype WHERE typeID = #{typeID}
+    </delete>
+    <select id="selectById" resultType="com.lws.blogdb.entity.NovelType">
+        SELECT * FROM noveltype WHERE typeID = #{id}
+    </select>
+</mapper>

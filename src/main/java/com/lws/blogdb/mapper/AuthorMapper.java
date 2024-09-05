@@ -34,4 +34,6 @@ public interface AuthorMapper {
     Integer updateHeadPic(@Param("authorid") String authorid, @Param("headPic") String headPic);
 
     Integer updatePwd(@Param("authorId") String authorId, @Param("newHashPwd") String newHashPwd);
+
+    Author selectByName(@Param("name") String name);
 }

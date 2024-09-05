@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
@@ -22,6 +24,10 @@ public class LoginInterceptor implements HandlerInterceptor {
         //验证token是否被篡改
         try {
             Map<String,Object> claims= JwtUtil.parseToken(token);
+            //获取访问地址
+            String requestURI = request.getRequestURI();
+            //判断是否有访问权限 暂时不做权限验证,实际还得是安全框架来做
+            List<String> urls = new ArrayList<String>();
             //挂载线程 这里应该用redis缓存token，这里只是简单验证用ThreadLocalUtil
             ThreadLocalUtil.set(claims);
 
