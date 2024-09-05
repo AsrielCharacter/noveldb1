@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/novelType")
 @Api(tags = "小说类型管理",description = "管理小说的类型")
@@ -70,5 +72,11 @@ public class NovelTypeController {
         return Result.error("删除失败，请联系管理员");
     }
 
+    @GetMapping()
+    @ApiOperation(value = "查询所有小说类型",notes = "查询所有小说类型")
+    public Result getNovelTypeList() {
+        List<NovelType> novelTypes = novelTypeService.selectAll();
+        return Result.success(novelTypes);
+    }
 
 }

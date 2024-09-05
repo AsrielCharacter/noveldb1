@@ -7,6 +7,8 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class NovelTypeServiceImpl implements NovelTypeService {
     @Autowired
@@ -30,5 +32,10 @@ public class NovelTypeServiceImpl implements NovelTypeService {
     @Override
     public Integer deleteNovelType(Integer typeID) {
         return novelTypeMapper.deleteNovelType(typeID);
+    }
+
+    @Override
+    public List<NovelType> selectAll() {
+        return novelTypeMapper.selectAll();
     }
 }

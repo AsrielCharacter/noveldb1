@@ -4,6 +4,8 @@ import com.lws.blogdb.entity.NovelType;
 import jakarta.validation.constraints.NotNull;
 import lombok.NonNull;
 
+import java.util.List;
+
 public interface NovelTypeService {
     //添加小说类型
     Integer addNovelType(NovelType novelType);
@@ -13,4 +15,6 @@ public interface NovelTypeService {
     Integer updateNovelType(NovelType novelType);
     //删除小说类型
     Integer deleteNovelType(@NotNull Integer typeID);
+    //查询所有小说类型
+    List<NovelType> selectAll();
 }

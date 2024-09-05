@@ -16,4 +16,7 @@
     <select id="selectById" resultType="com.lws.blogdb.entity.NovelType">
         SELECT * FROM noveltype WHERE typeID = #{id}
     </select>
+    <select id="selectAll" resultType="com.lws.blogdb.entity.NovelType">
+        SELECT * FROM noveltype
+    </select>
 </mapper>

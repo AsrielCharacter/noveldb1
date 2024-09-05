@@ -5,6 +5,8 @@ import lombok.NonNull;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface NovelTypeMapper {
     Integer addNovelType(NovelType novelType);
@@ -14,4 +16,6 @@ public interface NovelTypeMapper {
     Integer updateNovelType(NovelType novelType);
 
     Integer deleteNovelType(@Param("typeID") Integer typeID);
+
+    List<NovelType> selectAll();
 }
